@@ -6,23 +6,24 @@ The GrainTitle Registry Contract is a digital asset registry. After deployment, 
 
 ## Deployment Steps:
 
-1. <strong>Prerequisites</strong>:
+### 1. Prerequisites:
 
-Ensure you've run npm install in your project directory.
-Ensure Hardhat is configured correctly.
+-   Ensure you have executed `npm install` in the root of your project directory.
+-   Verify that Hardhat is set up and configured correctly.
 
-2. <strong>Network Configuration</strong>:
+### 2. Network Configuration:
 
 For deploying on networks other than default, configure the network in hardhat.config.js.
 
-3. <strong>Deployment</strong>:
-   <strong>Local</strong>:
+### 3. Deployment:
+
+#### - Local Deployment:
 
 ```shell
 npx hardhat run scripts/deploy.js
 ```
 
-<strong>Specific Network</strong>:
+#### - Deployment on a Specific Network:
 
 ```shell
 npx hardhat --network "YOUR_NETWORK_NAME" run scripts/deploy.js
@@ -30,6 +31,6 @@ npx hardhat --network "YOUR_NETWORK_NAME" run scripts/deploy.js
 
 (Replace YOUR_NETWORK_NAME with the desired network, e.g., "seplioa")
 
-4. <strong>Contract Address</strong>:
+### 4. Contract Address:
 
 Post-deployment, the address will display on the terminal. Save this address for future interactions.
