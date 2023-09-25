@@ -10,7 +10,7 @@ The UUPS Grain Supply Chain Contract is copy of the original Grain Supply Chain 
 
 -   Ensure you have executed `npm install` in the root of your project directory.
 -   Verify that Hardhat is set up and configured correctly.
--   Update the GrainSupplyChain.sol file by adding the appropriate Registry contract address.
+-   Update the UUPSGrainSupplyChain.sol file by adding the appropriate Registry contract address.
 
 ### 2. Network Configuration:
 
