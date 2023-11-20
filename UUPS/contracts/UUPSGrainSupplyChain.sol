@@ -44,7 +44,7 @@ contract UUPSGrainSupplyChain is
 {
     event taskCompleted(string taskName);
 
-    uint preconditions = 0x1;
+    uint preconditions;
 
     // ---------- PROCESS VARIABLES
     uint consignmentWeight;
@@ -61,14 +61,19 @@ contract UUPSGrainSupplyChain is
 
     // -------- EXTERNAL SMART CONTRACT ADDRESSES
     // TODO: Change this address to the address of the GrainTitle_Registry contract
-    address addressOfGrainTitle_Registry =
-        0x456771DBfEA87606bBBDb39BF658608D1b57eC82;
+    address addressOfGrainTitle_Registry;
 
     // ------------------------------------
 
     /// @custom:oz-upgrades-unsafe-allow constructor
     constructor() {
         _disableInitializers();
+    }
+
+    function initialize() public initializer {
+        __Ownable_init();
+        __UUPSUpgradeable_init();
+        preconditions = 0x1;
         consignmentWeight = 0;
         isLoanAccepted = false;
         titleCreationSuccess = false;
@@ -79,12 +84,10 @@ contract UUPSGrainSupplyChain is
         buyer = 0x0000000000000000000000000000000000000000;
         truckWeightWithConsignment = 0;
         grainQuality = 0;
-        Start();
-    }
 
-    function initialize() public initializer {
-        __Ownable_init();
-        __UUPSUpgradeable_init();
+        // TODO to change this address to the address of the GrainTitle_Registry contract
+        addressOfGrainTitle_Registry = 0x456771DBfEA87606bBBDb39BF658608D1b57eC82;
+        Start();
     }
 
     function _authorizeUpgrade(
