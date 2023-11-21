@@ -1,11 +1,21 @@
 /* global ethers */
 /* eslint prefer-const: "off" */
 
-const { getSelectors, FacetCutAction } = require("./libraries/diamond.js");
+const {
+    getSelectors,
+    removeSelectors,
+    FacetCutAction,
+} = require("./libraries/diamond.js");
 
 async function deployDiamond() {
     const accounts = await ethers.getSigners();
     const contractOwner = accounts[0];
+
+    // Library deployment
+    const lib = await ethers.getContractFactory("LibDiamond");
+    const libDiamond = await lib.deploy();
+    await libDiamond.deployed();
+    console.log("Library Address depolyed: " + libDiamond.address);
 
     // deploy DiamondCutFacet
     const DiamondCutFacet = await ethers.getContractFactory("DiamondCutFacet");
@@ -33,11 +43,7 @@ async function deployDiamond() {
     // deploy facets
     console.log("");
     console.log("Deploying facets");
-    const FacetNames = [
-        "DiamondLoupeFacet",
-        "OwnershipFacet",
-        "ProcessVariablesFacet",
-    ];
+    const FacetNames = ["DiamondLoupeFacet", "OwnershipFacet"];
 
     const cut = [];
     let ProcessVariablesFacetAddress;
@@ -45,9 +51,10 @@ async function deployDiamond() {
         const Facet = await ethers.getContractFactory(FacetName);
         const facet = await Facet.deploy();
         await facet.deployed();
-        if (FacetName === "ProcessVariablesFacet") {
-            ProcessVariablesFacetAddress = facet.address;
-        }
+        // if (FacetName === "ProcessVariablesFacet") {
+        //     ProcessVariablesFacetAddress = facet.address;
+        //     await facet.initialize();
+        // }
 
         console.log(`${FacetName} deployed: ${facet.address}`);
         cut.push({
@@ -101,14 +108,18 @@ async function deployDiamond() {
     const BPMNcut = [];
 
     for (const FacetName of BPMNFacetNames) {
-        const Facet = await ethers.getContractFactory(FacetName);
-        const facet = await Facet.deploy(ProcessVariablesFacetAddress);
+        const Facet = await ethers.getContractFactory(FacetName, {
+            libraries: { LibDiamond: libDiamond.address },
+        });
+        const facet = await Facet.deploy();
         await facet.deployed();
         console.log(`${FacetName} deployed: ${facet.address}`);
+        const functionSelectors = getSelectors(facet);
+
         BPMNcut.push({
             facetAddress: facet.address,
             action: FacetCutAction.Add,
-            functionSelectors: getSelectors(facet),
+            functionSelectors: functionSelectors,
         });
     }
 

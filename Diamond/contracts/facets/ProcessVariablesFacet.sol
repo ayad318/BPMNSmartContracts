@@ -4,7 +4,7 @@ pragma solidity ^0.8.0;
 import {LibDiamond} from "../libraries/LibDiamond.sol";
 
 contract ProcessVariablesFacet {
-    uint preconditions = 0x1;
+    uint preconditions;
 
     // ---------- PROCESS VARIABLES
     uint consignmentWeight;
@@ -20,11 +20,13 @@ contract ProcessVariablesFacet {
     // ----------------------------
 
     // -------- EXTERNAL SMART CONTRACT ADDRESSES TODO: Update the address
-    address addressOfGrainTitle_Registry = 0x72a239b360041a1964A7BA3d36FF735498F4d203;
+    address addressOfGrainTitle_Registry;
 
     // ------------------------------------
 
-    constructor() {
+    function initialize() public {
+        preconditions = 0x1;
+        addressOfGrainTitle_Registry = 0x72a239b360041a1964A7BA3d36FF735498F4d203;
         consignmentWeight = 0;
         isLoanAccepted = false;
         titleCreationSuccess = false;
@@ -37,11 +39,15 @@ contract ProcessVariablesFacet {
         grainQuality = 0;
     }
 
-    function Calculate_grain_weight(uint preconditionsp) internal returns (uint) {
+    function Calculate_grain_weight(
+        uint preconditionsp
+    ) internal returns (uint) {
         if ((preconditionsp & 0x8000 == 0x8000)) {
             return (preconditionsp & ~uint(0x8000)) | 0x4;
         } else {
-            consignmentWeight = truckWeightWithConsignment - truckWeightWithoutConsignment;
+            consignmentWeight =
+                truckWeightWithConsignment -
+                truckWeightWithoutConsignment;
             return preconditionsp;
         }
     }
@@ -114,7 +120,9 @@ contract ProcessVariablesFacet {
         return titleTransferSuccess;
     }
 
-    function setTruckWeightWithoutConsignment(uint _truckWeightWithoutConsignment) external {
+    function setTruckWeightWithoutConsignment(
+        uint _truckWeightWithoutConsignment
+    ) external {
         truckWeightWithoutConsignment = _truckWeightWithoutConsignment;
     }
 
@@ -130,7 +138,9 @@ contract ProcessVariablesFacet {
         return buyer;
     }
 
-    function setTruckWeightWithConsignment(uint _truckWeightWithConsignment) external {
+    function setTruckWeightWithConsignment(
+        uint _truckWeightWithConsignment
+    ) external {
         truckWeightWithConsignment = _truckWeightWithConsignment;
     }
 
