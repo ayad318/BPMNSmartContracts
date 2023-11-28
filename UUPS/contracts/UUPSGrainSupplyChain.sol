@@ -65,6 +65,10 @@ contract UUPSGrainSupplyChain is
 
     // ------------------------------------
 
+    // It looks like only 1 contract gets deploed not a proxy and a separate logic contract
+    // As per https://docs.openzeppelin.com/upgrades-plugins/1.x/writing-upgradeable logic
+    // contract can't have a constructor. I'm confused as we have both constructor and
+    // initialize functions in same contract
     /// @custom:oz-upgrades-unsafe-allow constructor
     constructor() {
         _disableInitializers();

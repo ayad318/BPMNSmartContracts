@@ -38,6 +38,12 @@ interface GrainTitle_Registry {
 contract Logic {
     event taskCompleted(string taskName);
 
+    // This variable manages the next process activity to execute. Ideally, 
+    // this should also be in data contract to allow logic contract upgrade. 
+    // Or else, logic contract should have the  ability to set the next 
+    // process activity when it's deployed (well, one can assume value is 
+    // hard coded when deploying new logic contract instance). But to do that
+    // is getEnablement() the function that indicates next activity?
     uint preconditions = 0x1;
 
     // -------- EXTERNAL SMART CONTRACT ADDRESSES
@@ -89,6 +95,11 @@ contract Logic {
             GrainTitle_Registry instanceOfGrainTitle_Registry = GrainTitle_Registry(
                     addressOfGrainTitle_Registry
                 );
+            // I'm not sure whether this is the best way to do it, i.e., create dataContract
+            // object by casting address everytime. I note original contract does the same for
+            // GrainTitle_Registry like in above line. I feel like doing this once in constructure
+            // and keeping it as a variable may save overall gas. Good to double check which
+            // approach is gas efficient
             Data dataContract = Data(dataContractAddress);
             dataContract.setTitleTransferSuccess(
                 instanceOfGrainTitle_Registry.record_ownership_transfer(
