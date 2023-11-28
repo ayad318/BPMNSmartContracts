@@ -3,6 +3,7 @@ pragma solidity ^0.8.0;
 
 import {LibDiamond} from "../libraries/LibDiamond.sol";
 
+// Shouldn't these be on the diamond proxy like the figure in https://eips.ethereum.org/EIPS/eip-2535?
 contract ProcessVariablesFacet {
     uint preconditions = 0x1;
 
