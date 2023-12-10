@@ -1,14 +1,19 @@
 require("@nomicfoundation/hardhat-toolbox");
+require("hardhat-gas-reporter");
 
 // TODO: Add your Alchemy API key and Goerli private key here.
-const ALCHEMY_API_KEY = "Add your Alchemy API key here";
-const ALCHEMY_SEPOLIA_API_KEY = "Add your Alchemy Sepolia API key here";
+// TODO: Add your Alchemy API key and Goerli private key here.
+const ALCHEMY_API_KEY = "sLYxjH129WHfYzOQ1B4bG2HSuwnMATFM";
+const ALCHEMY_SEPOLIA_API_KEY = "7meorxsLekHMmAEpl30-6O8_mEVGQKJC";
 
-const GOERLI_PRIVATE_KEY = "Add your Goerli private key here";
-
+const GOERLI_PRIVATE_KEY =
+    "137f46cb8f4dd2529b695905f03c74261a901ddadbcda987c24fd573edaa4ec7";
 module.exports = {
     solidity: "0.8.19",
-
+    gasReporter: {
+        enabled: true,
+        currency: "USD",
+    },
     networks: {
         goerli: {
             url: `https://eth-goerli.g.alchemy.com/v2/${ALCHEMY_API_KEY}`,
