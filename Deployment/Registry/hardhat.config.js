@@ -1,11 +1,12 @@
 require("@nomicfoundation/hardhat-toolbox");
 
 // TODO: Add your Alchemy API key and Goerli private key here.
-const ALCHEMY_API_KEY = "Add your Alchemy API key here";
-const ALCHEMY_SEPOLIA_API_KEY = "Add your Alchemy Sepolia API key here";
+const ALCHEMY_API_KEY = "";
+const ALCHEMY_SEPOLIA_API_KEY = "";
 
-const GOERLI_PRIVATE_KEY = "Add your Goerli private key here";
+const GOERLI_PRIVATE_KEY = "";
 
+const COINMARKETCAP_API_KEY = "";
 module.exports = {
     solidity: "0.5.0",
 
