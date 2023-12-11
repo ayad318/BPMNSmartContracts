@@ -4,8 +4,9 @@
   "description": "Template for contract projects.",
   "main": "index.js",
   "scripts": {
+    "deploy": "hardhat run scripts/deploy.js",
     "compile": "hardhat compile",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "hardhat test"
   },
   "author": "Ayad Farhat",
   "license": "MIT",
@@ -21,5 +22,9 @@
     "prettier": "^2.3.2",
     "prettier-plugin-solidity": "^1.0.0-beta.13",
     "standard": "^16.0.3"
+  },
+  "dependencies": {
+    "hardhat-gas-reporter": "^1.0.9",
+    "save-dev": "^0.0.1-security"
   }
 }
