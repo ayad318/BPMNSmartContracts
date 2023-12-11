@@ -5,6 +5,8 @@
   "main": "index.js",
   "scripts": {
     "test": "hardhat test",
+    "test:sepolia": "hardhat test --network sepolia",
+    "clean": "hardhat clean",
     "compile": "hardhat compile",
     "deploy": "hardhat run scripts/deploy.js",
     "deploy:sepolia": "hardhat run --network sepolia scripts/deploy.js"
